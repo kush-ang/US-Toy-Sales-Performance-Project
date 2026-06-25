@@ -1,0 +1,58 @@
+CREATE DATABASE toy_store;
+USE toy_store;
+
+CREATE TABLE sales (
+Sales_ID INT,
+Date VARCHAR(50),
+Store_ID INT,
+Product_ID INT,
+Units INT
+);
+
+LOAD DATA LOCAL INFILE "C:/Users/rambh/Downloads/US_Toy_datasets/sales.csv"
+INTO TABLE sales
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+
+# DATA CLEANING 
+
+# CLEAN THE SALES TABLE
+
+SELECT Date FROM sales LIMIT 5;
+
+SET SQL_SAFE_UPDATES =0;
+
+ALTER TABLE sales
+MODIFY COLUMN Date DATE;
+
+SELECT * FROM sales
+WHERE Sales_ID IS NULL
+OR Date IS NULL
+OR Store_ID IS NULL
+OR Product_ID  IS NULL
+OR Units IS NULL;
+
+SELECT Sales_ID ,COUNT(*) FROM sales
+GROUP BY Sales_ID 
+HAVING COUNT(*) >1;
+
+# CLEAN THE PRODUCTS TABLE
+
+SELECT * FROM products
+WHERE Product_ID IS NULL
+OR  Product_Name IS NULL
+OR Product_Category IS NULL
+OR Product_Cost IS NULL
+OR Product_Price IS NULL;
+
+# CLEAN THE STORES TABLE
+
+ALTER TABLE stores
+MODIFY COLUMN Store_Open_Date DATE;
+
+UPDATE stores
+SET Store_Name = REPLACE(Store_Name, ' 1','');
+
+SET SQL_SAFE_UPDATES =1;
