@@ -53,7 +53,7 @@ The data model uses an optimized **Star Schema** architecture. The central `sale
 
 ### 2. Custom DAX Calendar Table
 To successfully isolate continuous dates and drive robust temporal charts, a dedicated Calendar dimension was integrated into the schema.
-DAX
+'''DAX
 Custom_Calendar = 
 VAR MinDate = MIN('toy_store sales'[Date]) 
 VAR MaxDate = MAX('toy_store sales'[Date]) 
