@@ -56,7 +56,7 @@ LIMIT 1;
 SELECT 
 products.Product_Name,
 inventory.Stock_On_Hand,
-SUM(sales.Units) AS Total_Units_Sold
+ROUND(AVG(sales.Units),2) AS Units_Sold
 FROM sales
 INNER JOIN inventory
 ON inventory.Product_ID = sales.Product_ID
